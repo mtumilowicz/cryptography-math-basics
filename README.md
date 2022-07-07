@@ -1,6 +1,7 @@
 * references
     * https://medium.com/intuition/basics-of-mathematical-cryptography-408fdee23826
     * https://medium.com/@lizrice/finding-an-intro-to-maths-for-cryptography-cc97ad6b04
+    * https://math.stackexchange.com/questions/124891/proof-of-extended-euclidean-algorithm/124991#124991
 
 # cryptography-math-basics
 
@@ -15,12 +16,12 @@
         * consider set K = {ax + by | x,y e Z}
         * let k = min positive K
         * k = ax + by for some x,y e K
-        * a = qk + r, 0 <= r < k
+        * a = qk + r, 0 ≤ r < k
         * r = a - qk
             = a - q(ax + by)
             = a(1 - qx) + b(-qy) e K
         * k is the smallest element => r = 0 ( r < k, r e K )
-        * k is common divisor a, b => k <= gcd(a, b)
+        * k is common divisor a, b => k ≤ gcd(a, b)
         * gcd(a, b) | a and gcd(a, b) | b => gcd(a, b) | k because k = ax + by
         * gcd(a, b) = k = ax + by
     * digression
@@ -55,9 +56,8 @@
     * https://mathworld.wolfram.com/Ring.html
 
 ## Euler's totient function
-* Euler’s phi function (also sometimes known as Euler’s totient
-  function) is the function φ(m) defined by the rule
-  φ(m) = #(Z/mZ) ∗ = #{0 ≤ a < m : gcd(a,m) = 1}
+* Euler’s phi function = Euler’s totient function
+    * φ(m) = #(Z/mZ) = #{0 ≤ a < m : gcd(a,m) = 1}
 * Fast Powering Algorithm
     * Suppose that we want to compute 3 218 (mod 1000)
     * 218 = 2 + 2 3 + 2 4 + 2 6 + 2 7
