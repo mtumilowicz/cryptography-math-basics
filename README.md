@@ -4,40 +4,57 @@
 
 # cryptography-math-basics
 
-# common divisor
-*  A common divisor of two integers a and b is a positive integer d
-  that divides both of them
-* greatest common divisor of a and b is, as
-  its name suggests, the largest positive integer d such that d | a and d | b
-* The greatest common divisor of a and b is denoted gcd(a,b)
-*  (Extended Euclidean Algorithm). Let a and b be positive
-  integers. Then the equation
-  au + bv = gcd(a,b)
-  always has a solution in integers u and v
-  * proof: with bezout identity: https://math.stackexchange.com/a/124991
-  * More generally, any equation
-    Au + Bv = gcd(A,B)
-    * can be reduced to the case of relatively prime numbers by dividing both sides
-      by gcd(A,B)
-    * u * A / gcd + v * B / gcd = 1
-*  Let a and b be integers. We say that a and b are relatively prime
-  if gcd(a,b) = 1
-* Let m ≥ 1 be an integer. We say that the integers a and b are
-  congruent modulo m if their difference a − b is divisible by m. We write
-  a ≡ b (mod m)
-  * properties
-    * If a 1 ≡ a 2 (mod m) and b 1 ≡ b 2 (mod m), then
-        a 1 ± b 1 ≡ a 2 ± b 2 (mod m) and a 1 · b 1 ≡ a 2 · b 2 (mod m)
-    *  Let a be an integer. Then
-      a · b ≡ 1 (mod m) for some integer b if and only if gcd(a,m) = 1
-        * Further, if a · b 1 ≡ a · b 2 ≡ 1 (mod m), then b 1 ≡ b 2 (mod m). We call b
-          the (multiplicative) inverse of a modulo m
-* We write
-  Z/mZ = {0,1,2,...,m − 1}
-  and call Z/mZ the ring of integers modulo m
-  * We add and multiply elements
-    of Z/mZ by adding or multiplying them as integers and then dividing the
-    result by m and taking the remainder in order to obtain an element in Z/mZ
+## Euclidean Algorithm
+* common divisor of two integers a and b is a positive integer d that d | a and d | b
+    * gcd(a,b) = greatest common divisor
+* Extended Euclidean Algorithm
+    * a, b positive integer => au + bv = gcd(a,b) always has a solution in integers u and v
+    * proof
+        * using Bezout Identity: https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity
+            *  a and b be integers with greatest common divisor d => there exist integers x and y such that ax + by = d
+        * consider set K = {ax + by | x,y e Z}
+        * let k = min positive K
+        * k = ax + by for some x,y e K
+        * a = qk + r, 0 <= r < k
+        * r = a - qk
+            = a - q(ax + by)
+            = a(1 - qx) + b(-qy) e K
+        * k is the smallest element => r = 0 ( r < k, r e K )
+        * k is common divisor a, b => k <= gcd(a, b)
+        * gcd(a, b) | a and gcd(a, b) | b => gcd(a, b) | k because k = ax + by
+        * gcd(a, b) = k = ax + by
+    * digression
+        * a, b integers: a and b are relatively prime if gcd(a,b) = 1
+        * any equation Au + Bv = gcd(A,B) can be reduced to the case of relatively prime numbers
+            * u(A / gcd) + v(B / gcd) = 1
+
+## modulo arithmetic
+* let m >= 1 be an integer
+    * a ≡ b (mod m) <=> m | (a - b)
+    * properties
+        * if a1 ≡ a2 (mod m) and b1 ≡ b2 (mod m) then
+            * a1 ± b1 ≡ a2 ± b2 (mod m)
+            * a1 * b1 ≡ a2 * b2 (mod m)
+        * a * b ≡ 1 (mod m) for some integer b <=> gcd(a,m) = 1
+            * proof
+                * <=
+                    * gcd(a,m) = 1
+                    * there is u and v satisfying au + mv = 1 (extended euclidean algorithm)
+                    * au − 1 = −mv => m | au - 1 => au ≡ 1 (mod m)
+                    * take b = u
+                * =>
+                    * a * b ≡ 1 (mod m) => ab − 1 = cm for some integer c
+                    * gcd(a,m) | ab − cm => gcd(a,m) | 1
+            * so gcd(a,m) = 1 => there exists an inverse b of a modulo m
+        * a * b1 ≡ a * b2 ≡ 1 (mod m) => b1 ≡ b2 (mod m)
+            * we call b the (multiplicative) inverse of a modulo m
+            * proof
+                * b1 ≡ b1 * 1 ≡ b1 * (a * b2) ≡ (b1 * a) * b2 = 1 * b2 = b2
+* Z/mZ = {0,1,2,...,m − 1}
+    * ring of integers modulo m
+    * https://mathworld.wolfram.com/Ring.html
+
+## Euler's totient function
 * Euler’s phi function (also sometimes known as Euler’s totient
   function) is the function φ(m) defined by the rule
   φ(m) = #(Z/mZ) ∗ = #{0 ≤ a < m : gcd(a,m) = 1}
