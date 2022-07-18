@@ -52,70 +52,63 @@
             * proof
                 * b1 ≡ b1 * 1 ≡ b1 * (a * b2) ≡ (b1 * a) * b2 = 1 * b2 = b2
 * Z/mZ = {0,1,2,...,m − 1}
-    * ring of integers modulo m
     * https://mathworld.wolfram.com/Ring.html
+    * https://mathworld.wolfram.com/Field.html
+    * ring of integers modulo m
+    * p is prime
+        * => set Z/pZ of integers modulo p with its +, -, *, / is an example of a field
+        * => every nonzero element a in Z/pZ has a multiplicative inverse
+            * in other words: there is a number b satisfying ab ≡ 1 (mod p)
+            * proof
+                * if a ∈ Z/pZ is not zero, then gcd(a,p) = 1
+                * special case of proved above: a * b ≡ 1 (mod m) for some integer b <=> gcd(a,m) = 1
+            * consequences
+                * efficient way to compute inverses modulo p
+                * Fermat’s little theorem + fast powering algorithm
+                    * a^−1 ≡ a^(p−2) (mod p)
+                * extended Euclidean algorithm
+                    * au + pv = 1 in integers u and v
+                    * u = a^−1 mod p
 
 ## Euler's totient function
 * Euler’s phi function = Euler’s totient function
     * φ(m) = #(Z/mZ) = #{0 ≤ a < m : gcd(a,m) = 1}
-* Fast Powering Algorithm
-    * Suppose that we want to compute 3 218 (mod 1000)
-    * 218 = 2 + 2 3 + 2 4 + 2 6 + 2 7
-    * 3 218 = 3 2+2
-      3 +2 4 +2 6 +2 7
-      = 3 2 · 3 2
-      3
-      · 3 2
-      4
-      · 3 2
-      6
-      · 3 2
-      7
-    *  each number in the sequence is the square of the preceding one
-    *  Further,
-      since we only need these values modulo 1000, we never need to store more
-      than three digits
-* Let p be a prime. Then every nonzero element a in Z/pZ
-  has a multiplicative inverse, that is, there is a number b satisfying
-  ab ≡ 1 (mod p)
-    * using the prime
-      modulus p, since if a ∈ Z/pZ is not zero, then gcd(a,p) = 1
-    * Fermat’s little theorem (Theorem 1.24) and the fast power-
-      ing algorithm (Sect.1.3.2) provide us with a reasonably efficient method of
-      computing inverses modulo p, namely
-      a −1 ≡ a p−2 (mod p)
-    *  The extended Euclidean algorithm (Theorem 1.11) gives us an
-      efficient computational method for computing a −1 mod p
-       * au + pv = 1 in integers u and v
-       *  then u = a −1 mod p
-*  If p is prime, then the set Z/pZ of integers modulo p with its
-  addition, subtraction, multiplication, and division rules is an example of a
-  field
-    * a field is the general name for a (commutative) ring in which every nonzero
-      element has a multiplicative inverse
-* (Fermat’s Little Theorem). Let p be a prime number and
-  let a be any integer
-    * a p-1 = 1 mod p (p not divide a)
-        * a, 2a, 3a, ..., (p − 1)a reduced modulo p
-        * There are p − 1 numbers in this list, and we claim that they are all different
-            * take any two of them, say ja mod p and ka mod p, and suppose
-              that they are the same. This means that
-              ja ≡ ka (mod p), and hence that (j − k)a ≡ 0 (mod p)
-            *  either p
-              divides j − k or p divides a
-            * both j and k are between 1
-              and p − 1, so their difference j − k is between −(p − 2) and p − 2
-            * tween 1
-              and p − 1, so their difference j − k is between −(p − 2) and p − 2. There is
-              only one number between −(p − 2) and p − 2 that is divisible by p, and that
-              number is zero
-        * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
-        * a p−1 · (p − 1)! ≡ (p − 1)! (mod p)
-            * we are allowed to cancel (p − 1)! from both sides, since it is not
-              divisible by p
-        * a p−1 ≡ 1 (mod p)
-    * a p-1 = 0 mod p (p divide a)
-        * If p | a, then it is clear that every power of a is divisible by p
+
+
+## Fast Powering Algorithm
+* suppose that we want to compute 3^218 (mod 1000)
+* 218 = 2 + 2^3 + 2^4 + 2^6 + 2^7
+* 3^218 = 3^(2 + 2^3 + 2^4 + 2^6 + 2^7) = 3^2 * 3^2^3 * 3^2^4 * 3^2^6 * 3^2^7
+* it is relatively easy to compute the sequence of values: x^2, x^2^2, x^2^3, etc
+    * each number is the square of the preceding one
+* we need to store more at most three digits: (mod 1000)
+
+
+## (Fermat’s Little Theorem)
+    * p prime, a any integer
+        * => a p-1 = 1 mod p (p not divide a)
+            * proof
+                * a, 2a, 3a, ..., (p − 1)a reduced modulo p
+                * There are p − 1 numbers in this list, and we claim that they are all different
+                    * take any two of them, say ja mod p and ka mod p, and suppose
+                      that they are the same. This means that
+                      ja ≡ ka (mod p), and hence that (j − k)a ≡ 0 (mod p)
+                    *  either p
+                      divides j − k or p divides a
+                    * both j and k are between 1
+                      and p − 1, so their difference j − k is between −(p − 2) and p − 2
+                    * tween 1
+                      and p − 1, so their difference j − k is between −(p − 2) and p − 2. There is
+                      only one number between −(p − 2) and p − 2 that is divisible by p, and that
+                      number is zero
+                * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
+                * a p−1 · (p − 1)! ≡ (p − 1)! (mod p)
+                    * we are allowed to cancel (p − 1)! from both sides, since it is not
+                      divisible by p
+                * a p−1 ≡ 1 (mod p)
+        * => a p-1 = 0 mod p (p divide a)
+            * proof
+                * p | a => every power of a is divisible by p
 * We start by describing a nonmathematical way to visualize public key
   cryptography
     * Alice buys a safe with a narrow slot in the top and puts her
