@@ -86,50 +86,22 @@
 
 ## (Fermat’s Little Theorem)
     * p prime, a any integer
-        * => a p-1 = 1 mod p (p not divide a)
+        * p not divide a => a^(p-1) = 1 mod p
             * proof
                 * a, 2a, 3a, ..., (p − 1)a reduced modulo p
-                * There are p − 1 numbers in this list, and we claim that they are all different
-                    * take any two of them, say ja mod p and ka mod p, and suppose
-                      that they are the same. This means that
-                      ja ≡ ka (mod p), and hence that (j − k)a ≡ 0 (mod p)
-                    *  either p
-                      divides j − k or p divides a
-                    * both j and k are between 1
-                      and p − 1, so their difference j − k is between −(p − 2) and p − 2
-                    * tween 1
-                      and p − 1, so their difference j − k is between −(p − 2) and p − 2. There is
-                      only one number between −(p − 2) and p − 2 that is divisible by p, and that
-                      number is zero
+                * there are p − 1 numbers in this list, and we claim that they are all different
+                    * proof by contradiction
+                        * ja ≡ ka (mod p) => (j − k)a ≡ 0 (mod p)
+                        * either p | (j − k) or p | a => p | (j - k)
+                        * 1 <= j, k <= p − 1
+                        * −(p − 2) <= j − k <= p − 2
+                        * there is only one number between −(p − 2) and p − 2 that is divisible by p
+                            * that number is zero
                 * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
-                * a p−1 · (p − 1)! ≡ (p − 1)! (mod p)
-                    * we are allowed to cancel (p − 1)! from both sides, since it is not
-                      divisible by p
+                * a^(p−1) · (p − 1)! ≡ (p − 1)! (mod p)
+                    * we are allowed to cancel (p − 1)! from both sides
+                        * it is not divisible by p
                 * a p−1 ≡ 1 (mod p)
-        * => a p-1 = 0 mod p (p divide a)
+        * p divide a => a^(p-1) = 0 mod p
             * proof
                 * p | a => every power of a is divisible by p
-* We start by describing a nonmathematical way to visualize public key
-  cryptography
-    * Alice buys a safe with a narrow slot in the top and puts her
-      safe in a public location. Everyone in the world is allowed to examine the safe
-      and see that it is securely made. Bob writes his message to Alice on a piece of
-      paper and slips it through the slot in the top of the safe. Now only a person
-      with the key to the safe, which presumably means only Alice, can retrieve
-      and read Bob’s message. In this scenario, Alice’s public key is the safe, the
-      encryption algorithm is the process of putting the message in the slot, and the
-      decryption algorithm is the process of opening the safe with the key.
-    * A useful feature of our “safe-with-a-slot” cryptosystem, which it shares
-      with actual public key cryptosystems, is that Alice needs to put only one safe
-      in a public location, and then everyone in the world can use it repeatedly
-      to send encrypted messages to Alice
-* Secure PKCs are built using one-way functions that have a trapdoor. The
-  trapdoor is a piece of auxiliary information that allows the inverse to be easily
-  computed
-  * One says that the private key k priv is trapdoor information for the func-
-    tion e k pub , because without the trapdoor information it is very hard to compute
-    the inverse function to e k pub , but with the trapdoor information it is easy to
-    compute the inverse
-  * Notice that in particular, the function that is used to
-    create k pub from k priv must be difficult to invert, since k pub is public knowledge
-    and k priv allows efficient decryption
