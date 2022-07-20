@@ -2,6 +2,8 @@
     * https://medium.com/intuition/basics-of-mathematical-cryptography-408fdee23826
     * https://medium.com/@lizrice/finding-an-intro-to-maths-for-cryptography-cc97ad6b04
     * https://math.stackexchange.com/questions/124891/proof-of-extended-euclidean-algorithm/124991#124991
+    * https://www.amazon.com/Introduction-Mathematical-Cryptography-Undergraduate-Mathematics/dp/1441926747
+    * https://www.amazon.com/Blockchain-Distributed-Ledgers-Alexander-Lipton/dp/9811221510
 
 # cryptography-math-basics
 
@@ -99,9 +101,9 @@
                             * that number is zero
                 * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
                 * a^(p−1) · (p − 1)! ≡ (p − 1)! (mod p)
-                    * we are allowed to cancel (p − 1)! from both sides
-                        * it is not divisible by p
-                * a p−1 ≡ 1 (mod p)
+                    * (p − 1)! not divisible by p => we are allowed to cancel it from both sides
+                    * Fp is a field => we are allowed to divide by any nonzero number
+                * a^(p−1) ≡ 1 (mod p)
         * p divide a => a^(p-1) = 0 mod p
             * proof
                 * p | a => every power of a is divisible by p
