@@ -6,6 +6,7 @@
     * https://www.amazon.com/Blockchain-Distributed-Ledgers-Alexander-Lipton/dp/9811221510
     * https://mathworld.wolfram.com/Unit.html
     * https://kconrad.math.uconn.edu/blurbs/ugradnumthy/eulerthm.pdf
+    * https://cryptography.fandom.com/wiki/Trapdoor_function
 
 # cryptography-math-basics
 
@@ -29,8 +30,8 @@
         * gcd(a, b) | a and gcd(a, b) | b => gcd(a, b) | k because k = ax + by
         * gcd(a, b) = k = ax + by
     * digression
-        * a, b integers: a and b are relatively prime if gcd(a,b) = 1
         * any equation Au + Bv = gcd(A,B) can be reduced to the case of relatively prime numbers
+            * a and b are relatively prime if gcd(a,b) = 1
             * u(A / gcd) + v(B / gcd) = 1
 
 ## modulo arithmetic
@@ -86,20 +87,22 @@
 
 
 ## (Fermat’s Little Theorem)
-    * p prime, a any integer
-        * p not divide a => a^(p-1) = 1 mod p
-            * proof
-                * a, 2a, 3a, ..., (p − 1)a reduced modulo p
-                * we claim that they are all different
-                    * ja ≡ ka (mod p) => j ≡ k mod p (a is invertible)
-                * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
-                * a^(p−1) · (p − 1)! ≡ (p − 1)! (mod p)
-                    * (p − 1)! not divisible by p => we are allowed to cancel it from both sides
-                    * Fp is a field => we are allowed to divide by any nonzero number
-                * a^(p−1) ≡ 1 (mod p)
-        * p divide a => a^(p-1) = 0 mod p
-            * proof
-                * p | a => every power of a is divisible by p
+* p prime, a any integer
+    * p not divide a => a^(p-1) = 1 mod p
+        * proof
+            * a, 2a, 3a, ..., (p − 1)a reduced modulo p
+            * we claim that they are all different
+                * ja ≡ ka (mod p) => j ≡ k mod p (a is invertible)
+            * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
+            * a^(p−1) · (p − 1)! ≡ (p − 1)! (mod p)
+                * (p − 1)! not divisible by p => we are allowed to cancel it from both sides
+                * Fp is a field => we are allowed to divide by any nonzero number
+            * a^(p−1) ≡ 1 (mod p)
+    * p divide a => a^(p-1) = 0 mod p
+        * proof
+            * p | a => every power of a is divisible by p
+* implications: perform efficiently calculations mod (p − 1) in the exponent
+    * a^k ≡ a^(l(p-1) + r) ≡ A^r (mod p)
 
 ## Euler's totient function
 * Euler’s phi function = Euler’s totient function
@@ -118,3 +121,26 @@
             * ax ≡ ay mod m => x ≡ y mod m (a is invertible mod m)
         * (au1)(au2)(au3)·...·(auϕ(m))≡au1·au2·au3·...·au𝜙(m) (mod m)
         * a^𝜙(m)≡1 mod m
+
+## trapdoor function
+* is a function that is easy to compute in one direction, yet believed to be difficult to compute in the opposite
+direction (finding its inverse) without special information, called the "trapdoor
+* analogy
+    * padlock and its key
+    * it is trivial to change the padlock from open to closed without using the key
+        * by pushing the shackle into the lock mechanism
+    * opening the padlock easily requires the key to be used
+        * key is the trapdoor
+* example
+    * y = x^e mod n
+    * bad trapdoor function
+        * n = p (prime)
+        * y = x^e mod p
+        * we have to find inverse of e mod (p - 1)
+            * from Fermat's little theorem: we can perform calculations mod (p − 1) in the exponent
+            * ed = 1 mod (p - 1)
+                * it is solvable (for example using extended Euclidean algorithm) if gdc(e, p-1) = 1
+        * y^d = (x^e)^d = x^ed = x mod p-1
+        * very easy to reverse
+    * good trapdoor function
+        * n =
