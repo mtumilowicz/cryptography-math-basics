@@ -143,11 +143,20 @@ direction (finding its inverse) without special information, called the "trapdoo
             * Fermat's little theorem => we can perform calculations mod (p − 1) in the exponent
             * ed = 1 mod (p - 1)
                 * it is solvable (for example using extended Euclidean algorithm) if gdc(e, p-1) = 1
-        * y^d = (x^e)^d = x^ed = x mod p-1
+        * y^d = (x^e)^d = x^ed = x mod p
+        * solution is unique
+            * suppose that we have two solution c1, c2
+            * c1 ≡ c1^de ≡ (c1^e)^d ≡ y^d ≡ (c2^e)^d ≡ c2^de ≡ c2 mod p
         * very easy to reverse
     * good trapdoor function
         * n = pq, p,q - prime
         * y = x^e mod n
+        * we have to find inverse of e mod φ(pq)
+            * Euler's theorem => we can perform calculations mod φ(pq) in the exponent
+            * ed = 1 mod φ(pq)
+                * it is solvable (for example using extended Euclidean algorithm) if gdc(e, φ(pq)) = 1
+        * solution is unique
+            * c1 ≡ c1^de ≡ (c1^e)^d ≡ y^d ≡ (c2^e)^d ≡ c2^de ≡ c2 mod n
         * solving y = x^e mod n is as hard as factoring n = pq
         * however, if we know the actual factors, we can use Euler’s theorem and write x as
             * x = y^d mod n
