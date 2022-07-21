@@ -86,7 +86,7 @@
 * we need to store more at most three digits: (mod 1000)
 
 
-## (Fermat’s Little Theorem)
+## Fermat’s Little Theorem
 * p prime, a any integer
     * p not divide a => a^(p-1) = 1 mod p
         * proof
