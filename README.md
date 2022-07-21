@@ -4,6 +4,8 @@
     * https://math.stackexchange.com/questions/124891/proof-of-extended-euclidean-algorithm/124991#124991
     * https://www.amazon.com/Introduction-Mathematical-Cryptography-Undergraduate-Mathematics/dp/1441926747
     * https://www.amazon.com/Blockchain-Distributed-Ledgers-Alexander-Lipton/dp/9811221510
+    * https://mathworld.wolfram.com/Unit.html
+    * https://kconrad.math.uconn.edu/blurbs/ugradnumthy/eulerthm.pdf
 
 # cryptography-math-basics
 
@@ -51,6 +53,7 @@
             * so gcd(a,m) = 1 => there exists an inverse b of a modulo m
         * a * b1 ≡ a * b2 ≡ 1 (mod m) => b1 ≡ b2 (mod m)
             * we call b the (multiplicative) inverse of a modulo m
+            * unit is an element in a ring that has a multiplicative inverse
             * proof
                 * b1 ≡ b1 * 1 ≡ b1 * (a * b2) ≡ (b1 * a) * b2 = 1 * b2 = b2
 * Z/mZ = {0,1,2,...,m − 1}
@@ -72,10 +75,6 @@
                     * au + pv = 1 in integers u and v
                     * u = a^−1 mod p
 
-## Euler's totient function
-* Euler’s phi function = Euler’s totient function
-    * φ(m) = #(Z/mZ) = #{0 ≤ a < m : gcd(a,m) = 1}
-
 
 ## Fast Powering Algorithm
 * suppose that we want to compute 3^218 (mod 1000)
@@ -91,14 +90,8 @@
         * p not divide a => a^(p-1) = 1 mod p
             * proof
                 * a, 2a, 3a, ..., (p − 1)a reduced modulo p
-                * there are p − 1 numbers in this list, and we claim that they are all different
-                    * proof by contradiction
-                        * ja ≡ ka (mod p) => (j − k)a ≡ 0 (mod p)
-                        * either p | (j − k) or p | a => p | (j - k)
-                        * 1 <= j, k <= p − 1
-                        * −(p − 2) <= j − k <= p − 2
-                        * there is only one number between −(p − 2) and p − 2 that is divisible by p
-                            * that number is zero
+                * we claim that they are all different
+                    * ja ≡ ka (mod p) => j ≡ k mod p (a is invertible)
                 * a · 2a · 3a···(p − 1)a ≡ 1 · 2 · 3···(p − 1) (mod p)
                 * a^(p−1) · (p − 1)! ≡ (p − 1)! (mod p)
                     * (p − 1)! not divisible by p => we are allowed to cancel it from both sides
@@ -107,3 +100,21 @@
         * p divide a => a^(p-1) = 0 mod p
             * proof
                 * p | a => every power of a is divisible by p
+
+## Euler's totient function
+* Euler’s phi function = Euler’s totient function
+    * φ(m) = #(Z/mZ) = #{0 ≤ a < m : gcd(a,m) = 1}
+
+## Euler’s theorem
+* very useful generalization of Fermat’s little theorem
+* gcd(A,m) = 1 => A^𝜙(m) = 1 mod m
+    * proof
+        * very similar to Fermat’s little theorem, instead of 1,2,...,p-1 we take all units
+        * consider all units modulo m: u1, u2, ..., uφ(m)
+            * why there is φ(m) units?
+                * because a * b ≡ 1 (mod m) for some integer b <=> gcd(a,m) = 1
+        * a·u1, a·u2, a·u3,... , a·uφ(m)
+        * we claim that they are all different
+            * ax ≡ ay mod m => x ≡ y mod m (a is invertible mod m)
+        * (au1)(au2)(au3)·...·(auϕ(m))≡au1·au2·au3·...·au𝜙(m) (mod m)
+        * a^𝜙(m)≡1 mod m
