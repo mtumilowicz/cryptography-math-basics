@@ -107,10 +107,13 @@
 ## Euler's totient function
 * Euler’s phi function = Euler’s totient function
     * φ(m) = #(Z/mZ) = #{0 ≤ a < m : gcd(a,m) = 1}
+* φ(n) is extremely difficult to compute
+    * if someone knows that n = pq, computation of φ(n) is straightforward
+    * large n cannot be factored efficiently!
 
 ## Euler’s theorem
 * very useful generalization of Fermat’s little theorem
-* gcd(A,m) = 1 => A^𝜙(m) = 1 mod m
+* gcd(A,m) = 1 => A^φ(m) = 1 mod m
     * proof
         * very similar to Fermat’s little theorem, instead of 1,2,...,p-1 we take all units
         * consider all units modulo m: u1, u2, ..., uφ(m)
@@ -119,8 +122,8 @@
         * a·u1, a·u2, a·u3,... , a·uφ(m)
         * we claim that they are all different
             * ax ≡ ay mod m => x ≡ y mod m (a is invertible mod m)
-        * (au1)(au2)(au3)·...·(auϕ(m))≡au1·au2·au3·...·au𝜙(m) (mod m)
-        * a^𝜙(m)≡1 mod m
+        * (au1)(au2)(au3)·...·(auϕ(m))≡au1·au2·au3·...·auφ(m) (mod m)
+        * a^φ(m)≡1 mod m
 
 ## trapdoor function
 * is a function that is easy to compute in one direction, yet believed to be difficult to compute in the opposite
@@ -137,10 +140,15 @@ direction (finding its inverse) without special information, called the "trapdoo
         * n = p (prime)
         * y = x^e mod p
         * we have to find inverse of e mod (p - 1)
-            * from Fermat's little theorem: we can perform calculations mod (p − 1) in the exponent
+            * Fermat's little theorem => we can perform calculations mod (p − 1) in the exponent
             * ed = 1 mod (p - 1)
                 * it is solvable (for example using extended Euclidean algorithm) if gdc(e, p-1) = 1
         * y^d = (x^e)^d = x^ed = x mod p-1
         * very easy to reverse
     * good trapdoor function
-        * n =
+        * n = pq, p,q - prime
+        * y = x^e mod n
+        * solving y = x^e mod n is as hard as factoring n = pq
+        * however, if we know the actual factors, we can use Euler’s theorem and write x as
+            * x = y^d mod n
+            * ed = 1 mod φ(n)
