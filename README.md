@@ -7,6 +7,7 @@
     * https://mathworld.wolfram.com/Unit.html
     * https://kconrad.math.uconn.edu/blurbs/ugradnumthy/eulerthm.pdf
     * https://cryptography.fandom.com/wiki/Trapdoor_function
+    * https://en.wikipedia.org/wiki/Carmichael_number
 
 # cryptography-math-basics
 
@@ -103,6 +104,14 @@
             * p | a => every power of a is divisible by p
 * implications: perform efficiently calculations mod (p − 1) in the exponent
     * a^k ≡ a^(l(p-1) + r) ≡ A^r (mod p)
+* bad for primality testing
+    * Carmichael number is a composite number n which satisfies the modular arithmetic congruence relation:
+        ```
+        b^(n-1) ≡ 1 (mod n)
+        ```
+        for all integers b which are relatively prime to n
+    * example: 561
+    * what should be used? Miller–Rabin test
 
 ## Euler's totient function
 * Euler’s phi function = Euler’s totient function
