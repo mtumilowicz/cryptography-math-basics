@@ -8,17 +8,19 @@
     * https://kconrad.math.uconn.edu/blurbs/ugradnumthy/eulerthm.pdf
     * https://cryptography.fandom.com/wiki/Trapdoor_function
     * https://en.wikipedia.org/wiki/Carmichael_number
+    * https://artofproblemsolving.com/wiki/index.php/Euclid%27s_Lemma
+    * https://artofproblemsolving.com/wiki/index.php/Bezout%27s_Lemma
+    * https://mathstats.uncg.edu/sites/pauli/112/HTML/secbezout.html
+    * [The Extended Euclidean algorithm](https://www.youtube.com/watch?v=hB34-GSDT3k)
 
 # cryptography-math-basics
 
 ## Euclidean Algorithm
 * common divisor of two integers a and b is a positive integer d that d | a and d | b
     * gcd(a,b) = greatest common divisor
-* Extended Euclidean Algorithm
-    * a, b positive integer => au + bv = gcd(a,b) always has a solution in integers u and v
+* Bezout Identity
+    * a and b be integers with greatest common divisor d => there exist integers x and y such that ax + by = d
     * proof
-        * using Bezout Identity: https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity
-            *  a and b be integers with greatest common divisor d => there exist integers x and y such that ax + by = d
         * consider set K = {ax + by | x,y e Z}
         * let k = min positive K
         * k = ax + by for some x,y e K
@@ -30,10 +32,31 @@
         * k is common divisor a, b => k ≤ gcd(a, b)
         * gcd(a, b) | a and gcd(a, b) | b => gcd(a, b) | k because k = ax + by
         * gcd(a, b) = k = ax + by
-    * digression
-        * any equation Au + Bv = gcd(A,B) can be reduced to the case of relatively prime numbers
-            * a and b are relatively prime if gcd(a,b) = 1
-            * u(A / gcd) + v(B / gcd) = 1
+    * example (Extended Euclidean algorithm)
+        * find the Bezout Identity for a=34 and b=19
+        * first, find the gcd(34, 19)
+            ```
+            34 = 19(1) + 15
+            19 = 15(1) + 4
+            15 = 4(3) + 3
+            4 = 3(1) + 1
+            3 = 1(3) + 0
+            ```
+        * then work backwards
+            ```
+            1 = 4 - 1(3)
+            = 4 - 1(15 - 4(3)) = 4(4) - 1(15)
+            = 4(19 - 15(1)) - 1(15) = 4(19) - 5(15)
+            = 4(19) - 5(34 - 19(1)) = 9(19) - 5(34)
+            ```
+* Euclid's lemma
+    * p is prime <=> p|ab => p|a or p|b
+    * proof
+        * suppose gcd(p,a)=1 (otherwise - done)
+        * Bezout Identity => there exist integers such that x,y such that px+ay=1
+        * b(px+ay)=b
+        * pbx+aby=b
+        * p|p and p|ab (hypothesis) => p|(pbx + aby)=b
 
 ## modulo arithmetic
 * let m >= 1 be an integer
